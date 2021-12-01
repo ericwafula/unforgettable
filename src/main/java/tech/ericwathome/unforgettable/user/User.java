@@ -21,13 +21,13 @@ public class User {
 
     public User(){}
 
-    public User(String username, String firstName, String lastName, String email) {
+    public User(String username, String firstName, String lastName, String email, String taskId) {
         this.userId = username;
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.task = new Task();
+        this.task = new Task(taskId, "", "");
     }
 
     public String getId() {
