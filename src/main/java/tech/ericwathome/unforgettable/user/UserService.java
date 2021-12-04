@@ -1,21 +1,17 @@
 package tech.ericwathome.unforgettable.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-@Service
-public class UserService {
-    @Autowired
-    UserRepository userRepository;
+public interface UserService {
 
-    public List<User> getAllUsers() {
-        List<User> allUsers = new ArrayList<>();
+    User addUser(User user);
 
-        userRepository.findAll()
-                .forEach(allUsers::add);
-        return allUsers;
-    }
+    List<User> getUsers();
+
+    Optional<User> getUser(Long userId);
+
+    User updateUser(User user, Long userId);
+
+    void deleteUser(Long userId);
 }

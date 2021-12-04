@@ -1,80 +1,34 @@
 package tech.ericwathome.unforgettable.user;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import tech.ericwathome.unforgettable.task.Task;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User {
     @Id
-    private String userId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long userId;
+    @NotEmpty(message = "username cannot be empty ")
     private String username;
+    @NotEmpty(message = "First Name cannot be empty ")
     private String firstName;
+    @NotEmpty(message = "Last Name cannot be empty ")
     private String lastName;
+    @Email
     private String email;
+
     @ManyToOne
-    @JoinColumn(name = "task_task_id")
-    private Task task;
-
-    public User(){}
-
-    public User(String username, String firstName, String lastName, String email, String taskId) {
-        this.userId = username;
-        this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.task = new Task(taskId, "", "");
-    }
-
-    public String getId() {
-        return userId;
-    }
-
-    public void setId(String id) {
-        this.userId = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Task getTask() {
-        return task;
-    }
-
-    public void setTask(Task task) {
-        this.task = task;
-    }
+    @JoinColumn(name = "user_tasks_task_id")
+    private Task userTasks;
 }
