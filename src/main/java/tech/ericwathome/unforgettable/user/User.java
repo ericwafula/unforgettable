@@ -27,8 +27,4 @@ public class User {
     private String lastName;
     @Email
     private String email;
-
-    @ManyToOne
-    @JoinColumn(name = "user_tasks_task_id")
-    private Task userTasks;
 }
