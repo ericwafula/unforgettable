@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import tech.ericwathome.unforgettable.exceptions.UserNotFoundException;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -29,7 +30,7 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    public Optional<User> getUser(@PathVariable("id") Long userId){
+    public Optional<User> getUser(@PathVariable("id") Long userId) throws UserNotFoundException {
         return userService.getUser(userId);
     }
 

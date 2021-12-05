@@ -2,6 +2,7 @@ package tech.ericwathome.unforgettable.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tech.ericwathome.unforgettable.exceptions.UserNotFoundException;
 
 import java.util.List;
 import java.util.Objects;
@@ -23,8 +24,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> getUser(Long userId) {
-        return userRepository.findById(userId);
+    public Optional<User> getUser(Long userId) throws UserNotFoundException {
+        Optional <User> userDB = userRepository.findById(userId);
+
+        if (userDB.isEmpty()){
+            throw new UserNotFoundException("User not found");
+        }
+
+        return userDB;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package tech.ericwathome.unforgettable.user;
 
+import tech.ericwathome.unforgettable.exceptions.UserNotFoundException;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -9,7 +11,7 @@ public interface UserService {
 
     List<User> getUsers();
 
-    Optional<User> getUser(Long userId);
+    Optional<User> getUser(Long userId) throws UserNotFoundException;
 
     User updateUser(User user, Long userId);
 
