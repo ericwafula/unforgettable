@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import tech.ericwathome.unforgettable.exceptions.TaskNotFoundException;
 import tech.ericwathome.unforgettable.user.User;
 
 import javax.validation.Valid;
@@ -25,12 +26,12 @@ public class TaskController {
     }
 
     @GetMapping("/users/{id}/tasks")
-    public List<Task> getUserTasks(@PathVariable("id") Long userId){
+    public List<Task> getUserTasks(@PathVariable("id") Long userId) throws TaskNotFoundException {
         return taskService.getUserTasks(userId);
     }
 
     @GetMapping("/users/{userId}/tasks/{id}")
-    public Optional<Task> getTaskById(@PathVariable("id") Long id){
+    public Optional<Task> getTaskById(@PathVariable("id") Long id) throws TaskNotFoundException {
         return taskService.getUserTask(id);
     }
 

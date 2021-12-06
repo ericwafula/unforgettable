@@ -2,6 +2,7 @@ package tech.ericwathome.unforgettable.task;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tech.ericwathome.unforgettable.exceptions.TaskNotFoundException;
 
 import java.util.List;
 import java.util.Objects;
@@ -18,13 +19,24 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> getUserTasks(Long userId) {
-        return taskRepository.findByUserUserId(userId);
+    public List<Task> getUserTasks(Long userId) throws TaskNotFoundException {
+        List<Task> tasksDB = taskRepository.findByUserUserId(userId);
+
+        if (tasksDB.isEmpty()){
+            throw new TaskNotFoundException("There are no tasks available");
+        }
+        return tasksDB;
     }
 
     @Override
-    public Optional<Task> getUserTask(Long id) {
-        return taskRepository.findById(id);
+    public Optional<Task> getUserTask(Long id) throws TaskNotFoundException {
+
+        Optional<Task> taskDB = taskRepository.findById(id);
+
+        if (taskDB.isEmpty()){
+            throw new TaskNotFoundException("Task not found for the given id");
+        }
+        return taskDB;
     }
 
     @Override
